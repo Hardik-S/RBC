@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.venv/
+venv/
+build/
+dist/
+.env
+
+# Keep output folders, ignore generated artifacts.
+intraday_output/charts/*.png
+intraday_output/reports/*.csv
+intraday_output/reports/*.txt
+!intraday_output/charts/.gitkeep
+!intraday_output/reports/.gitkeep
