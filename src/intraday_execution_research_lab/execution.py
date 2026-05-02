@@ -51,10 +51,15 @@ def adaptive_schedule(
     - Start from a blend of neutral remaining-quantity pace and VWAP target.
     - Scale each bar with urgency to front-load in stressed regimes.
     """
+    if total_qty <= 0:
+        raise ValueError("total_qty must be positive")
+
     urg = np.clip(np.asarray(urgency, dtype=float), 0.01, 0.99)
     if urg.size == 0:
         raise ValueError("urgency must not be empty")
     vol_w = _normalized_weights(np.asarray(volume_profile, dtype=float))
+    if vol_w.size != urg.size:
+        raise ValueError("volume_profile and urgency must have the same length")
 
     num_bars = urg.size
     schedule = np.zeros(num_bars, dtype=int)
