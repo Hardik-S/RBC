@@ -4,7 +4,9 @@ import numpy as np
 
 
 def _normalized_weights(weights: np.ndarray) -> np.ndarray:
-    clipped = np.clip(np.asarray(weights, dtype=float), 0.0, None)
+    raw = np.asarray(weights, dtype=float)
+    clean = np.nan_to_num(raw, nan=0.0, posinf=0.0, neginf=0.0)
+    clipped = np.clip(clean, 0.0, None)
     if clipped.size == 0:
         raise ValueError("weights must not be empty")
     total = clipped.sum()
